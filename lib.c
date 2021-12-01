@@ -11,7 +11,7 @@
  * Returns `true` if an integer has been read.
  * Returns `false` if stdin is empty (and no integer has been read).
  */
-int read_next_int(unsigned int* pointer) {
+int read_uint(unsigned int* pointer) {
     static long int left;
     static long int bidx = IBUF_SIZE;
     static char buff[IBUF_SIZE];
@@ -44,9 +44,18 @@ int read_next_int(unsigned int* pointer) {
     }
 }
 
-int writeuint(unsigned int result) {
-    char out = (char) (result % 10) + 48;
-    result /= 10;
-    return (result > 0 ? writeuint(result) : 0) |
-            ((int) write(STDOUT_FILENO, &out, 1) & ~1);
+/**
+ * Write an integer to stdout
+ */
+int write_uint(unsigned int result) {
+    long unsigned int idx = 9;
+    long int ret;
+    char out[10];
+    while (result > 0) {
+        out[idx] = (char) (result % 10) + 48;
+        result /= 10;
+        idx -= 1;
+    }
+    ret = write(STDOUT_FILENO, &out[idx + 1] , 9 - idx);
+    return ret > 0 ? 0 : (int) ret;
 }

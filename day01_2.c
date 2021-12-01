@@ -6,7 +6,7 @@ int main() {
     unsigned int  widx =  0;
     unsigned int  wndw[3] = { ~0u, ~0u, ~0u};
 
-    while(read_next_int(&curr)) {
+    while(read_uint(&curr)) {
         /* compare with measurement leaving window */
         if (wndw[widx] < curr) {
             incs += 1;
@@ -17,5 +17,5 @@ int main() {
         widx = (widx + 1) % 3;
     };
 
-    return writeuint(incs);
+    return write_uint(incs);
 }

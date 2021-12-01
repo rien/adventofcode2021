@@ -5,12 +5,12 @@ int main() {
     unsigned int  curr =  0;
     unsigned int  prev = ~0u;
 
-    while(read_next_int(&curr)) {
+    while(read_uint(&curr)) {
         if (prev < curr) {
             incs += 1;
         }
         prev = curr;
     }
 
-    return writeuint(incs);
+    return write_uint(incs);
 }
