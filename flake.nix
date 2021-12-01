@@ -15,6 +15,7 @@
     devShell = mkShell {
       buildInputs = [
         gcc
+        hyperfine
       ];
     };
   });
