@@ -16,6 +16,7 @@
       buildInputs = [
         gcc
         hyperfine
+        linuxPackages.perf
       ];
     };
   });
