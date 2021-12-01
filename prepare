@@ -1,0 +1,8 @@
+#!/usr/bin/env sh
+
+day="$1"
+part="$2"
+
+cflags=""
+
+gcc "day${day}_${part}.c" -o "out/day${day}_${part}"

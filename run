@@ -1,0 +1,5 @@
+#!/usr/bin/env sh
+day="$1"
+part="$2"
+
+cat "inputs/input${day}.txt" | "out/day${day}_${part}"
