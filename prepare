@@ -1,8 +1,8 @@
 #!/usr/bin/env sh
-
 day="$1"
 part="$2"
 
-cflags="-std=c89 -Wconversion -Werror -Wall -Wpedantic -Wextra"
+cflags="-Ofast -std=c89 -Wconversion -Werror -Wall -Wpedantic -Wextra"
 
+mkdir -p out
 gcc $cflags "day${day}_${part}.c" -o "out/day${day}_${part}"
