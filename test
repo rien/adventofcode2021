@@ -1,10 +1,10 @@
-#!/usr/bin/env sh
+#!/usr/bin/env bash
 day="$1"
 part="$2"
 
-set -eo pipefail
+set -e
 
-function compare() {
+compare() {
     d="$1"
     p="$2"
     ./prepare "$1" "$2"
