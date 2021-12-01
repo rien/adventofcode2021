@@ -14,7 +14,7 @@
   in with pkgs; {
     devShell = mkShell {
       buildInputs = [
-        gcc
+        musl
         hyperfine
         linuxPackages.perf
       ];

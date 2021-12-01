@@ -2,7 +2,7 @@
 day="$1"
 part="$2"
 
-cflags="-Ofast -std=c89 -Wconversion -Werror -Wall -Wpedantic -Wextra"
+cflags="-Ofast -std=c89 -Wconversion -Werror -Wall -Wpedantic -Wextra -static"
 
 mkdir -p out
-gcc $cflags "day${day}_${part}.c" -o "out/day${day}_${part}"
+musl-gcc $cflags "day${day}_${part}.c" -o "out/day${day}_${part}"
