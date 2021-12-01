@@ -3,6 +3,6 @@
 day="$1"
 part="$2"
 
-cflags="-std=c89 -Werror -Wall -Wpedantic -Wextra"
+cflags="-std=c89 -Wconversion -Werror -Wall -Wpedantic -Wextra"
 
 gcc $cflags "day${day}_${part}.c" -o "out/day${day}_${part}"

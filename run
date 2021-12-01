@@ -1,5 +1,6 @@
 #!/usr/bin/env sh
 day="$1"
 part="$2"
+input="$3"
 
-cat "inputs/input${day}.txt" | "out/day${day}_${part}"
+"out/day${day}_${part}" < "$input"
