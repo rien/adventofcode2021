@@ -52,7 +52,7 @@ static inline int write_uint(unsigned int result) {
     long int ret;
     char out[10];
     while (result > 0) {
-        out[idx] = (char) (result % 10) + 48;
+        out[idx] = (char) ((result % 10) + 48);
         result /= 10;
         idx -= 1;
     }
