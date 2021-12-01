@@ -5,4 +5,4 @@ part="$2"
 cflags="-s -march=native -Ofast -std=c99 -Wconversion -Werror -Wall -Wpedantic -Wextra -static"
 
 mkdir -p out
-musl-gcc $cflags "day${day}_${part}.c" -o "out/day${day}_${part}"
+musl-gcc $cflags "days/day${day}_${part}.c" -o "out/day${day}_${part}"

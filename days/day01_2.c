@@ -1,4 +1,4 @@
-#include "lib.c"
+#include "../lib/io.c"
 
 int main() {
     unsigned int  curr =  0;
