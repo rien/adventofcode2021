@@ -3,7 +3,7 @@
 #define true 1
 #define false 0
 
-#define IBUF_SIZE 4096
+#define IBUF_SIZE 12288
 
 /**
  * Read the next integer and store it in *pointer.
