@@ -1,6 +1,6 @@
 #include "lib.c"
 
-int main(int _argc, char* _argv[]) {
+int main() {
              char lchr = 48;
              int  retn =  0;
     unsigned int  curr =  0;
@@ -10,18 +10,18 @@ int main(int _argc, char* _argv[]) {
 
     do {
 
-        // read input until newline
+        /* read input until newline */
         do {
             curr = curr*10 + (lchr - 48);
             retn = read(STDIN_FILENO, &lchr, 1);
         } while(lchr != '\n' && retn > 0);
 
-        // compare with measurement leaving window
+        /* compare with measurement leaving window */
         if (wndw[widx] < curr) {
             incs += 1;
         }
 
-        // update window
+        /* update window */
         wndw[widx] = curr;
         widx = (widx + 1) % 3;
 
