@@ -15,6 +15,7 @@
     devShell = mkShell {
       buildInputs = [
         musl
+        clang_13
         hyperfine
         linuxPackages.perf
       ];

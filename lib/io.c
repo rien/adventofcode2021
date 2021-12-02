@@ -20,6 +20,39 @@ static inline long int read_char() {
 }
 
 /**
+ * Write an integer to stdout
+ */
+static inline int write_uint(unsigned int result) {
+    long unsigned int idx = 9;
+    long int ret;
+    char out[11];
+    out[10] = '\n';
+    while (result > 0) {
+        out[idx] = (char) ((result % 10) + 48);
+        result /= 10;
+        idx -= 1;
+    }
+    ret = write(STDOUT_FILENO, &out[idx + 1] , 10 - idx);
+    return ret > 0 ? 0 : (int) ret;
+}
+
+/**
+ * Write a string to stdout
+ */
+static inline int write_string(char* string) {
+    long int ret = write(STDOUT_FILENO, &string, sizeof(string));
+    return ret > 0 ? 0 : (int) ret;
+}
+
+/**
+ * Write a character to stdout
+ */
+static inline int write_char(unsigned char chr) {
+    long int ret = write(STDOUT_FILENO, &chr, 1);
+    return ret > 0 ? 0 : (int) ret;
+}
+
+/**
  * The current character from stdout.
  * Undefined if there hasn't been a call to read_char() yet.
  */
@@ -53,17 +86,39 @@ static inline int read_uint(unsigned int* pointer) {
 }
 
 /**
- * Write an integer to stdout
+ * Read characters up until the next whitespace.
+ * Assigns the first character of the consumed characters to the pointer.
+ *
+ * Returns how many characters have been read or 0 (false) if there were no
+ * characters left to read.
  */
-static inline int write_uint(unsigned int result) {
-    long unsigned int idx = 9;
-    long int ret;
-    char out[10];
-    while (result > 0) {
-        out[idx] = (char) ((result % 10) + 48);
-        result /= 10;
-        idx -= 1;
+static inline int read_until_space(unsigned char* pointer) {
+    unsigned char nxt;
+    int i = 0;
+    if (read_char()) {
+        i += 1;
+        nxt = current_char();
+        // 'whitespace', exit
+        if (nxt <= 32) {
+            return true;
+        }
+        // assign to pointer
+        *pointer = nxt;
     }
-    ret = write(STDOUT_FILENO, &out[idx + 1] , 9 - idx);
-    return ret > 0 ? 0 : (int) ret;
+    while (read_char()) {
+        i += 1;
+        nxt = current_char();
+        // 'whitespace', exit
+        if (nxt <= 32) {
+            return true;
+        }
+    }
+    return i;
 }
+
+static inline void skip_input(unsigned int count) {
+    while(count && read_char()) {
+        count -= 1;
+    }
+}
+
