@@ -1,5 +1,6 @@
 CC = musl-gcc
-CFLAGS = -s -march=native -Ofast -std=c99 -Wconversion -Werror -Wall -Wpedantic -Wextra -static
+CFLAGS = -fasm -march=native -std=c99 -Wconversion -Wall -Wpedantic -Wextra -static
+OPTIMIZE_FLAGS = -Ofast -s
 
 DAYS := $(shell find inputs/ -type f -name 'input*' | sed 's/.*\([0-9][0-9]\).*/\1/')
 LIBS := $(shell find lib/ -type f -name '*.c')
@@ -14,11 +15,17 @@ define day_part
 $(shell echo $< | sed 's_.*day\(....\).*_\1_')
 endef
 
-out/%: days/%.c $(LIBS)
+out/day%: days/day%.c $(LIBS)
+	$(CC) $(CFLAGS) $(OPTIMIZE_FLAGS) $< -o $@
+
+out/test%: test/%.c $(LIBS)
 	$(CC) $(CFLAGS) $< -o $@
 
 run_%: out/day%
 	$< < inputs/$(INPUT)$(call day,$<).txt
+
+test%: out/test%
+	$<
 
 test_%: out/day%
 	diff -w <($< < inputs/$(INPUT)$(call day,$<).txt) outputs/$(call day_part,$<).out
