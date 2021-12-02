@@ -32,7 +32,7 @@ static inline int write_uint(unsigned int result) {
         result /= 10;
         idx -= 1;
     }
-    ret = write(STDOUT_FILENO, &out[idx + 1] , 10 - idx);
+    ret = write(STDOUT_FILENO, &out[idx + 1], 10 - idx);
     return ret > 0 ? 0 : (int) ret;
 }
 
@@ -56,9 +56,7 @@ static inline int write_char(unsigned char chr) {
  * The current character from stdout.
  * Undefined if there hasn't been a call to read_char() yet.
  */
-static inline unsigned char current_char() {
-    return buff[bidx];
-}
+static inline unsigned char current_char() { return buff[bidx]; }
 
 /**
  * Read the next integer and store it in *pointer.
@@ -69,14 +67,13 @@ static inline unsigned char current_char() {
  * Returns `false` if stdin is empty (and no integer has been read).
  */
 static inline int read_uint(unsigned int* pointer) {
-
     unsigned char nxt;
     unsigned int val = 0;
 
     while (read_char()) {
         nxt = current_char() - 48;
         if (nxt < 10) {
-            val = val*10 + (unsigned int) nxt;
+            val = val * 10 + (unsigned int)nxt;
         } else {
             *pointer = val;
             return true;
@@ -117,8 +114,7 @@ static inline int read_until_space(unsigned char* pointer) {
 }
 
 static inline void skip_input(unsigned int count) {
-    while(count && read_char()) {
+    while (count && read_char()) {
         count -= 1;
     }
 }
-
