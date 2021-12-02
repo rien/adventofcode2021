@@ -1,8 +1,3 @@
 #!/usr/bin/env sh
-day="$1"
-part="$2"
 
-cflags="-s -march=native -Ofast -std=c99 -Wconversion -Werror -Wall -Wpedantic -Wextra -static"
-
-mkdir -p out
-musl-gcc $cflags "days/day${day}_${part}.c" -o "out/day${day}_${part}"
+make out/day$1_$2

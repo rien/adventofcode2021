@@ -16,6 +16,7 @@
       buildInputs = [
         musl
         clang_13
+        gnumake
         hyperfine
         linuxPackages.perf
       ];
