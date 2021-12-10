@@ -3,6 +3,9 @@
 #define true 1
 #define false 0
 
+# define assert(X, Y) if(!(X)) { write_string(Y); }
+# define write_string(X) { char arr[] = X; write_char_array(arr, sizeof(arr) - 1); }
+
 #define IBUF_SIZE 12288
 
 static long int left;
@@ -16,6 +19,14 @@ static inline long int read_char() {
         left = read(STDIN_FILENO, &buff, IBUF_SIZE);
         bidx = 0;
     }
+    return left;
+}
+
+/**
+ * This will return the amount of bytes left in the input buffer.
+ * Will return 0 if the input is empty.
+ */
+static inline long int input_left() {
     return left;
 }
 
@@ -36,19 +47,28 @@ static inline int write_uint(unsigned int result) {
     return ret > 0 ? 0 : (int) ret;
 }
 
-/**
- * Write a string to stdout
- */
-static inline int write_string(char* string) {
-    long int ret = write(STDOUT_FILENO, &string, sizeof(string));
-    return ret > 0 ? 0 : (int) ret;
-}
 
 /**
  * Write a character to stdout
  */
 static inline int write_char(unsigned char chr) {
     long int ret = write(STDOUT_FILENO, &chr, 1);
+    return ret > 0 ? 0 : (int) ret;
+}
+
+static inline int write_int(int result) {
+    if(result < 0) {
+        write_char('-');
+        result *= -1;
+    }
+    return write_uint((unsigned int) result);
+}
+
+/**
+ * Write a string to stdout
+ */
+static inline int write_char_array(char* ptr, unsigned int size) {
+    long int ret = write(STDOUT_FILENO, ptr, size);
     return ret > 0 ? 0 : (int) ret;
 }
 
@@ -117,4 +137,8 @@ static inline void skip_input(unsigned int count) {
     while (count && read_char()) {
         count -= 1;
     }
+}
+
+static inline void skip_line() {
+    while(read_char() && current_char() != '\n') {}
 }
