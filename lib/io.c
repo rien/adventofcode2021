@@ -43,20 +43,19 @@ static inline long int input_left() {
 /**
  * Write an integer to stdout
  */
-static inline int write_uint(unsigned int result) {
-    long unsigned int idx = 9;
+static inline int write_uint(unsigned long long int result) {
+    long unsigned int idx = 20;
     long int ret;
-    char out[11];
-    out[10] = '\n';
+    char out[22];
+    out[21] = '\n';
     while (result > 0) {
         out[idx] = (char) ((result % 10) + 48);
         result /= 10;
         idx -= 1;
     }
-    ret = write(STDOUT_FILENO, &out[idx + 1], 10 - idx);
+    ret = write(STDOUT_FILENO, &out[idx + 1], 21 - idx);
     return ret > 0 ? 0 : (int) ret;
 }
-
 
 /**
  * Write a character to stdout
@@ -66,12 +65,12 @@ static inline int write_char(unsigned char chr) {
     return ret > 0 ? 0 : (int) ret;
 }
 
-static inline int write_int(int result) {
+static inline int write_int(long long int result) {
     if(result < 0) {
         write_char('-');
         result *= -1;
     }
-    return write_uint((unsigned int) result);
+    return write_uint((unsigned long long) result);
 }
 
 /**

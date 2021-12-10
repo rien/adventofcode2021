@@ -1,7 +1,8 @@
 
 
-void insertion_sort(int* values, int size) {
-    int tmp, j;
+void insertion_sort(unsigned long long* values, int size) {
+    unsigned long long int tmp;
+    int j;
     int i = 1;
     while (i < size) {
         tmp = values[i];
