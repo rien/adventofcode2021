@@ -3,12 +3,22 @@
 #define true 1
 #define false 0
 
-# define assert(X, Y) if(!(X)) { write_string(Y); }
+# define assert(X) \
+if(!(X)) { \
+    write_string("Assertion failed at "); \
+    write_string(__FILE__); \
+    write_char(':'); \
+    write_uint(__LINE__); \
+    write_string(" -> "); \
+    write_string(#X); \
+    write_char('\n'); \
+}
+
 # define write_string(X) { char arr[] = X; write_char_array(arr, sizeof(arr) - 1); }
 
 #define IBUF_SIZE 12288
 
-static long int left;
+static long int left = -1;
 static long int bidx = IBUF_SIZE;
 static unsigned char buff[IBUF_SIZE];
 
