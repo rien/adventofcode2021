@@ -3,33 +3,23 @@
 #define true 1
 #define false 0
 
-# define assert(X) \
-if(!(X)) { \
-    write_string("Assertion failed at "); \
-    write_string(__FILE__); \
-    write_char(':'); \
-    write_uint(__LINE__); \
-    write_string(" -> "); \
-    write_string(#X); \
-    write_char('\n'); \
-}
 
 # define write_string(X) { char arr[] = X; write_char_array(arr, sizeof(arr) - 1); }
 
-#define IBUF_SIZE 12288
+#define __IO_IBUF_SIZE 12288
 
-static long int left = -1;
-static long int bidx = IBUF_SIZE;
-static unsigned char buff[IBUF_SIZE];
+static long int __io_left = -1;
+static long int __io_bidx = __IO_IBUF_SIZE;
+static unsigned char __io_buff[__IO_IBUF_SIZE];
 
 static inline long int read_char() {
-    bidx += 1;
+    __io_bidx += 1;
     /* fill buffer if required, ensures at least 1 char */
-    if (bidx >= left) {
-        left = read(STDIN_FILENO, &buff, IBUF_SIZE);
-        bidx = 0;
+    if (__io_bidx >= __io_left) {
+        __io_left = read(STDIN_FILENO, &__io_buff, __IO_IBUF_SIZE);
+        __io_bidx = 0;
     }
-    return left;
+    return __io_left;
 }
 
 /**
@@ -37,7 +27,7 @@ static inline long int read_char() {
  * Will return 0 if the input is empty.
  */
 static inline long int input_left() {
-    return left;
+    return __io_left;
 }
 
 /**
@@ -85,7 +75,7 @@ static inline int write_char_array(char* ptr, unsigned int size) {
  * The current character from stdout.
  * Undefined if there hasn't been a call to read_char() yet.
  */
-static inline unsigned char current_char() { return buff[bidx]; }
+static inline unsigned char current_char() { return __io_buff[__io_bidx]; }
 
 /**
  * Read the next integer and store it in *pointer.
@@ -102,7 +92,7 @@ static inline int read_uint(unsigned int* pointer) {
     while (read_char()) {
         nxt = current_char() - 48;
         if (nxt < 10) {
-            val = val * 10 + (unsigned int)nxt;
+            val = val * 10 + (unsigned int) nxt;
         } else {
             *pointer = val;
             return true;
