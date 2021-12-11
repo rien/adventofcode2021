@@ -1,5 +1,3 @@
-#include "./io.c"
-
 # define assert(X) \
 if(!(X)) { \
     write_string("Assertion failed at "); \
